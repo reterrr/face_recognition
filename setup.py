@@ -47,22 +47,48 @@ def install_opencv():
     print("Installing OpenCV...")
 
     if platform.system() == "Linux":
-        distro = subprocess.check_output(["lsb_release", "-is"]).decode().strip().lower()
+        try:
+            distro = subprocess.check_output(["lsb_release", "-is"]).decode().strip().lower()
+        except Exception:
+            distro = ""
         if "arch" in distro:
             run_command("sudo pacman -Sy --needed opencv")
         elif "ubuntu" in distro or "debian" in distro:
             run_command("sudo apt update && sudo apt install -y libopencv-dev")
-
+        else:
+            print("Please install OpenCV manually for your Linux distribution.")
     elif platform.system() == "Darwin":
         run_command("brew install opencv")
-
     elif platform.system() == "Windows":
         run_command("winget install -e --id opencv.opencv")
+
+def install_qt6():
+    """Installs Qt6 for C++ based on the platform."""
+    print("Installing Qt6...")
+
+    if platform.system() == "Linux":
+        try:
+            distro = subprocess.check_output(["lsb_release", "-is"]).decode().strip().lower()
+        except Exception:
+            distro = ""
+        if "arch" in distro:
+            run_command("sudo pacman -Sy --needed qt6-base")
+        elif "ubuntu" in distro or "debian" in distro:
+            run_command("sudo apt update && sudo apt install -y qt6-base-dev")
+        else:
+            print("Please install Qt6 manually for your Linux distribution.")
+    elif platform.system() == "Darwin":
+        # Homebrew typically installs the latest Qt (currently Qt6)
+        run_command("brew install qt")
+    elif platform.system() == "Windows":
+        # The package id may vary; adjust if needed.
+        run_command("winget install -e --id QtProject.Qt6")
 
 def main():
     """Main function to install dependencies."""
     install_cmake()
     install_opencv()
+    install_qt6()
     print("Setup completed successfully.")
 
 if __name__ == "__main__":
