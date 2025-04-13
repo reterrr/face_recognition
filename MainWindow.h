@@ -11,13 +11,15 @@
 
 #include <opencv2/core/mat.hpp>
 
+#include "ImageProcessor.h"
+
 class MainWindow final : public QMainWindow {
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-    ~MainWindow();
+    ~MainWindow() override;
 
 private slots:
     void loadImage();
@@ -25,7 +27,7 @@ private slots:
     void unloadImage();
 
 private:
-    void displayImage(const cv::Mat &img) const;
+    void refresh_display_image() const;
 
     QHBoxLayout *buttonLayout;
     QVBoxLayout *mainLayout;
@@ -34,5 +36,7 @@ private:
     QLabel *imageLabel;
     QPushButton *loadButton;
     QPushButton *unloadButton;
-    cv::Mat processedImage;
+    cv::Mat processed_image;
+
+    ImageProcessor processor;
 };

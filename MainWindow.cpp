@@ -52,21 +52,24 @@ void MainWindow::loadImage()
     const cv::Mat image = cv::imread(fileName.toStdString());
     if (image.empty()) {
         QMessageBox::warning(this, "Error", "Failed to load image.");
+
         return;
     }
 
-    displayImage(image);
+    processor.process(image, processed_image);
+
+    refresh_display_image();
 }
 
 void MainWindow::unloadImage()
 {
     imageLabel->clear();
-    processedImage.release();
+    processed_image.release();
 }
 
-void MainWindow::displayImage(const cv::Mat &img) const {
+void MainWindow::refresh_display_image() const {
     cv::Mat rgb;
-    cvtColor(img, rgb, cv::COLOR_BGR2RGB);
+    cvtColor(processed_image, rgb, cv::COLOR_BGR2RGB);
 
     const QImage qimg(rgb.data, rgb.cols, rgb.rows, rgb.step, QImage::Format_RGB888);
 

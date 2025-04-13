@@ -31,7 +31,10 @@ set_target_properties(nvonnxparser PROPERTIES IMPORTED_LOCATION "${TENSORRT_ROOT
 
 add_executable(face_recognition
         main.cpp
-        )
+        MainWindow.cpp
+        MainWindow.h
+        ImageProcessor.cpp
+        ImageProcessor.h)
 
 target_link_libraries(face_recognition PRIVATE
         ${OpenCV_LIBS}

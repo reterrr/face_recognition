@@ -10,7 +10,15 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
+.venv
+.gitignore
 
 build
 cmake-build-debug
 .idea
+
+yolo11n.pt
+yolov5.onnx
+yolov5s.pt
+runs
+wider_face_dataset
